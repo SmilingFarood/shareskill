@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shareskill/providers/user_category.dart';
 import 'package:shareskill/screens/all_profiles.dart';
-import 'package:shareskill/screens/profile_list_screen.dart';
 import 'package:shareskill/widgets/category_list.dart';
 
 class CategoryScreen extends StatelessWidget {

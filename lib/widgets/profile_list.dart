@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProfileList extends StatelessWidget {
   final String name;
-  final String category;
+  final List category;
 
   ProfileList({
     @required this.name,
@@ -35,7 +35,7 @@ class ProfileList extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Row(
                       children: <Widget>[
@@ -52,16 +52,10 @@ class ProfileList extends StatelessWidget {
                         SizedBox(
                           width: 5,
                         ),
-                        Text(category),
-                      ],
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Icon(Icons.portrait),
-                        SizedBox(
-                          width: 5,
+                        Text(
+                          category.toList().toString() ,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                        Text('I am here 3'),
                       ],
                     ),
                   ],

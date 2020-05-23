@@ -25,10 +25,7 @@ class _ProfileListScreenState extends State<ProfileListScreen> {
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     categoryTitle = routeArgs['title'];
     categoryId = routeArgs['id'];
-    final loadedProfiles = Provider.of<UserProfile>(context).loadProfile(categoryTitle);
-    
-    // displayedProfile = ;
-    
+
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
@@ -37,12 +34,21 @@ class _ProfileListScreenState extends State<ProfileListScreen> {
   Widget build(BuildContext context) {
     // final answer = Provider.of<UserProfile>(context).listedProfile(categoryId);
     // print(answer);
+    final loadedProfiles =
+        Provider.of<UserProfile>(context).loadProfile(categoryTitle);
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text(categoryTitle),
-      ),
-      body: Center()
-      // ProfileList(),
-    );
+        appBar: AppBar(
+          title: Text(categoryTitle),
+        ),
+        body: ListView.builder(
+          itemCount: loadedProfiles.length,
+          itemBuilder: (ctx, i) => ProfileList(
+            name: loadedProfiles[i].name,
+            category: loadedProfiles[i].category,
+          ),
+        )
+        // ProfileList(),
+        );
   }
 }

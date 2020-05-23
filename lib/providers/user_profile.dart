@@ -38,12 +38,8 @@ class UserProfile with ChangeNotifier {
   }
 
   List<Profile> loadProfile(String categoryReceived) {
-    
-    profiles.forEach((element) {
-      element.category.contains(categoryReceived);
-      // print(profiles.toString());
-    });
-    // print(profiles);
-    
+    var profileWithThisSkills = profiles
+        .where((profile) => profile.category.contains(categoryReceived));
+    return profileWithThisSkills.toList();
   }
 }
