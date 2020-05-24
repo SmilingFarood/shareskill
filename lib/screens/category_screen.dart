@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shareskill/providers/user_category.dart';
 import 'package:shareskill/screens/all_profiles.dart';
+import 'package:shareskill/screens/app_drawer_screen.dart';
 import 'package:shareskill/widgets/category_list.dart';
 
-class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({Key key}) : super(key: key);
+class CategoryListScreen extends StatelessWidget {
+  const CategoryListScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +31,7 @@ class CategoryScreen extends StatelessWidget {
               ))
         ],
       ),
+      drawer: AppDrawer(),
       body: ListView.builder(
         itemCount: categories.length,
         itemBuilder: (ctx, i) => CategoryList(

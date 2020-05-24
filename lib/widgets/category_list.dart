@@ -33,7 +33,10 @@ class CategoryList extends StatelessWidget {
                 backgroundColor: color,
                 child: icon,
               ),
-              title: Text(title),
+              title: Text(
+                title,
+                style: Theme.of(context).textTheme.headline1,
+              ),
             ),
           ),
         ),

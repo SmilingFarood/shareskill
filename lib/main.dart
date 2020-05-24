@@ -4,7 +4,9 @@ import 'package:shareskill/providers/user_category.dart';
 import 'package:shareskill/providers/user_profile.dart';
 import 'package:shareskill/screens/all_profiles.dart';
 import 'package:shareskill/screens/category_screen.dart';
+import 'package:shareskill/screens/edit_profile_screen.dart';
 import 'package:shareskill/screens/profile_list_screen.dart';
+import 'package:shareskill/screens/single_user_profile_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,11 +29,26 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.indigo,
           accentColor: Colors.amber,
+          backgroundColor: Colors.white,
+          textTheme: TextTheme(
+            headline1: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              color: Colors.indigo,
+            ),
+            headline2: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey,
+            ),
+          ),
         ),
-        home: CategoryScreen(),
+        home: CategoryListScreen(),
         routes: {
           ProfileListScreen.routeName: (ctx) => ProfileListScreen(),
           AllProfiles.routeName: (ctx) => AllProfiles(),
+          EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
+          SingleUserProfileScreen.routeName: (ctx) => SingleUserProfileScreen(),
         },
       ),
     );

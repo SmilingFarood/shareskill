@@ -22,6 +22,7 @@ class _AllProfilesState extends State<AllProfiles> {
         body: ListView.builder(
           itemCount: loadedProfiles.length,
           itemBuilder: (ctx, i) => ProfileList(
+            id: loadedProfiles[i].id,
             name: loadedProfiles[i].name,
             category: loadedProfiles[i].category,
           ),

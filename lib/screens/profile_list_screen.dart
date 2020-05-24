@@ -25,8 +25,6 @@ class _ProfileListScreenState extends State<ProfileListScreen> {
         ModalRoute.of(context).settings.arguments as Map<String, String>;
     categoryTitle = routeArgs['title'];
     categoryId = routeArgs['id'];
-
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
@@ -44,6 +42,7 @@ class _ProfileListScreenState extends State<ProfileListScreen> {
         body: ListView.builder(
           itemCount: loadedProfiles.length,
           itemBuilder: (ctx, i) => ProfileList(
+            id: loadedProfiles[i].id,
             name: loadedProfiles[i].name,
             category: loadedProfiles[i].category,
           ),
