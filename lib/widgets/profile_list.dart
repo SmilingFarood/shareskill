@@ -3,7 +3,7 @@ import 'package:shareskill/screens/single_user_profile_screen.dart';
 
 class ProfileList extends StatelessWidget {
   final String name;
-  final List category;
+  final List<String> category;
   final String id;
 
   ProfileList({
@@ -62,10 +62,33 @@ class ProfileList extends StatelessWidget {
                           SizedBox(
                             width: 5,
                           ),
-                          Text(
-                            category.toList().toString(),
-                            overflow: TextOverflow.ellipsis,
+                          // Container(child: Row(),)
+                          Container(
+                            child: Container(
+                              // color: Colors.purple,
+                              constraints: BoxConstraints(
+                                maxHeight: 30,
+                                minWidth: 30,
+                                maxWidth: 200,
+                              ),
+                              child: ListView.builder(
+                                itemExtent: 55,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: category.length,
+                                itemBuilder: (ctx, i) => Center(
+                                  child: Text(
+                                    category[i] + ',',
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
+                          // Text(
+                          //   category.toString(),
+                          //   overflow: TextOverflow.ellipsis,
+                          // ),
                         ],
                       ),
                     ],

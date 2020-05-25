@@ -9,7 +9,7 @@ class UserProfile with ChangeNotifier {
       id: 'Asa123',
       name: 'Asa',
       photo: null,
-      category: ['Singing', 'Dancing'],
+      category: ['Singing', 'Dancing', 'Playing', 'Shouting', 'Writing'],
       address: 'Futa South Gate',
     ),
     Profile(
@@ -49,7 +49,7 @@ class UserProfile with ChangeNotifier {
 
   Profile singleProfile({String receivedId}) {
     final foundProfile =
-        profiles.firstWhere((element) => element.id.contains(receivedId));
+        profiles.firstWhere((element) => element.id.contains(receivedId), orElse: () => null);
 
     return foundProfile;
   }

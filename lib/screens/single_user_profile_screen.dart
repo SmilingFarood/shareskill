@@ -18,6 +18,8 @@ class SingleUserProfileScreen extends StatelessWidget {
 
     return SingleUserProfile(
       name: singleLoadedProfile.name,
+      address: singleLoadedProfile.address,
+      category: singleLoadedProfile.category,
     );
   }
 }

@@ -41,6 +41,15 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: Colors.grey,
             ),
+            headline5: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 18,
+            ),
+            headline6: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 15,
+            ),
+
           ),
         ),
         home: CategoryListScreen(),
