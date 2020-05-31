@@ -7,6 +7,7 @@ import 'package:shareskill/widgets/category_list.dart';
 
 class CategoryListScreen extends StatelessWidget {
   const CategoryListScreen({Key key}) : super(key: key);
+  static const routeName = '/category-list-screen';
 
   @override
   Widget build(BuildContext context) {

@@ -7,6 +7,7 @@ class Profile {
   final String name;
   final File photo;
   final List<String> category;
+  
   final String address;
 
   Profile({

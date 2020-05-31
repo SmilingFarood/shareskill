@@ -3,9 +3,13 @@ import 'package:provider/provider.dart';
 import 'package:shareskill/providers/user_category.dart';
 import 'package:shareskill/providers/user_profile.dart';
 import 'package:shareskill/screens/all_profiles.dart';
+import 'package:shareskill/screens/auth_screen.dart';
+import 'package:shareskill/screens/category_input_screen.dart';
 import 'package:shareskill/screens/category_screen.dart';
 import 'package:shareskill/screens/edit_profile_screen.dart';
+import 'package:shareskill/screens/name_input_screen.dart';
 import 'package:shareskill/screens/profile_list_screen.dart';
+import 'package:shareskill/screens/profile_photo_screen.dart';
 import 'package:shareskill/screens/single_user_profile_screen.dart';
 
 void main() {
@@ -49,15 +53,18 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: 15,
             ),
-
           ),
         ),
-        home: CategoryListScreen(),
+        home: AuthScreen(),
         routes: {
+          CategoryListScreen.routeName: (ctx) => CategoryListScreen(),
           ProfileListScreen.routeName: (ctx) => ProfileListScreen(),
           AllProfiles.routeName: (ctx) => AllProfiles(),
           EditProfileScreen.routeName: (ctx) => EditProfileScreen(),
           SingleUserProfileScreen.routeName: (ctx) => SingleUserProfileScreen(),
+          NameInputScreen.routeName: (ctx) => NameInputScreen(),
+          ProfilePhotoScreen.routeName: (ctx) => ProfilePhotoScreen(),
+          CategoryInputScreen.routeName: (ctx) => CategoryInputScreen(),
         },
       ),
     );

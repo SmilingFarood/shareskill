@@ -7,9 +7,9 @@ class Category {
   final Color color;
 
   Category({
-    @required this.id,
+    this.id,
     @required this.title,
-    @required this.icon,
-    @required this.color,
+    this.icon,
+    this.color,
   });
 }

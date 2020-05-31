@@ -48,7 +48,8 @@ class SingleUserProfile extends StatelessWidget {
                   child: Card(
                     elevation: 5,
                     child: Container(
-                      height: 150,
+                      
+                      height: 180,
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(
                           vertical: 6, horizontal: 10),
@@ -110,7 +111,7 @@ class SingleUserProfile extends StatelessWidget {
                   child: Card(
                     elevation: 5,
                     child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 6),
+                      margin: const EdgeInsets.symmetric(vertical: 25),
                       child: Column(
                         children: <Widget>[
                           Text(
