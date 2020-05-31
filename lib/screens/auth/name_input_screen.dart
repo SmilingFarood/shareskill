@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:shareskill/screens/profile_photo_screen.dart';
+import 'package:shareskill/screens/auth/profile_photo_screen.dart';
 
 class NameInputScreen extends StatelessWidget {
   const NameInputScreen({Key key}) : super(key: key);

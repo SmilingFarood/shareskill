@@ -7,9 +7,9 @@ import 'package:shareskill/screens/auth_screen.dart';
 import 'package:shareskill/screens/category_input_screen.dart';
 import 'package:shareskill/screens/category_screen.dart';
 import 'package:shareskill/screens/edit_profile_screen.dart';
-import 'package:shareskill/screens/name_input_screen.dart';
+import 'package:shareskill/screens/auth/name_input_screen.dart';
 import 'package:shareskill/screens/profile_list_screen.dart';
-import 'package:shareskill/screens/profile_photo_screen.dart';
+import 'package:shareskill/screens/auth/profile_photo_screen.dart';
 import 'package:shareskill/screens/single_user_profile_screen.dart';
 
 void main() {

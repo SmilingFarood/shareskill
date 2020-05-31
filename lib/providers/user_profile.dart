@@ -45,11 +45,21 @@ class UserProfile with ChangeNotifier {
     return profileWithThisSkills.toList();
   }
 
-  void addProfile({String name, File photo, List category, String address}) {}
+  void addProfile({String name, File photo, List category, String address}) {
+    final newProfile = Profile(
+      id: DateTime.now().toString(),
+      name: name,
+      photo: photo,
+      category: category,
+      address: address,
+    );
+    _profiles.add(newProfile);
+  }
 
   Profile singleProfile({String receivedId}) {
-    final foundProfile =
-        profiles.firstWhere((element) => element.id.contains(receivedId), orElse: () => null);
+    final foundProfile = profiles.firstWhere(
+        (element) => element.id.contains(receivedId),
+        orElse: () => null);
 
     return foundProfile;
   }
