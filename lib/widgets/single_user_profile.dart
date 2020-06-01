@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class SingleUserProfile extends StatelessWidget {
-  final String name;
+  final String firstName;
   final String address;
   final List<String> category;
+  final File photo;
 
   SingleUserProfile({
-    @required this.name,
+    @required this.firstName,
     @required this.address,
     @required this.category,
+    this.photo,
   });
 
   @override
@@ -19,22 +23,17 @@ class SingleUserProfile extends StatelessWidget {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverAppBar(
+            pinned: true,
             expandedHeight: MediaQuery.of(context).size.height * 0.3,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(name),
-              background: Row(
-                children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.only(left: 30),
-                    width: queryData.size.width * 0.3,
-                    height: queryData.size.height * 0.15,
-                    decoration: BoxDecoration(
-                      color: Colors.grey,
-                      borderRadius: BorderRadius.circular(100),
-                    ),
-                    child: Icon(Icons.camera_alt),
-                  ),
-                ],
+              title: Text(firstName),
+              background: Container(
+                child: photo == null
+                    ? Text('No profile photo')
+                    : Image.file(
+                        photo,
+                        fit: BoxFit.cover,
+                      ),
               ),
             ),
           ),
@@ -48,7 +47,6 @@ class SingleUserProfile extends StatelessWidget {
                   child: Card(
                     elevation: 5,
                     child: Container(
-                      
                       height: 180,
                       width: double.infinity,
                       margin: const EdgeInsets.symmetric(

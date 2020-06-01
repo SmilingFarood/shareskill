@@ -5,34 +5,38 @@ import 'package:shareskill/models/profile.dart';
 
 class UserProfile with ChangeNotifier {
   List<Profile> _profiles = [
-    Profile(
-      id: 'Asa123',
-      name: 'Asa',
-      photo: null,
-      category: ['Singing', 'Dancing', 'Playing', 'Shouting', 'Writing'],
-      address: 'Futa South Gate',
-    ),
-    Profile(
-      id: 'MichaelJackson123',
-      name: 'Michael Jackson',
-      photo: null,
-      category: ['Writing', 'Playing'],
-      address: 'Apatapiti',
-    ),
-    Profile(
-      id: 'Nairamarley123',
-      name: 'NairaMarley',
-      photo: null,
-      category: ['Singing', 'Playing'],
-      address: 'Obanla',
-    ),
-    Profile(
-      id: 'brymo123',
-      name: 'Brymo',
-      photo: null,
-      category: ['Writing', 'Dancing'],
-      address: 'Inside Town',
-    ),
+    // Profile(
+    //   id: 'Asa123',
+    //   firstName: 'Asa',
+    //   lastName: 'Musicals',
+    //   photo: null,
+    //   category: ['Singing', 'Dancing', 'Playing', 'Shouting', 'Writing'],
+    //   address: 'Futa South Gate',
+    // ),
+    // Profile(
+    //   id: 'MichaelJackson123',
+    //   firstName: 'Michael',
+    //   lastName: 'Jackson',
+    //   photo: null,
+    //   category: ['Writing', 'Playing'],
+    //   address: 'Apatapiti',
+    // ),
+    // Profile(
+    //   id: 'Nairamarley123',
+    //   firstName: 'NairaMarley',
+    //   lastName: 'comeForward',
+    //   photo: null,
+    //   category: ['Singing', 'Playing'],
+    //   address: 'Obanla',
+    // ),
+    // Profile(
+    //   id: 'brymo123',
+    //   firstName: 'Brymo',
+    //   lastName: 'Art of music',
+    //   photo: null,
+    //   category: ['Writing', 'Dancing'],
+    //   address: 'Inside Town',
+    // ),
   ];
 
   List<Profile> get profiles {
@@ -45,10 +49,17 @@ class UserProfile with ChangeNotifier {
     return profileWithThisSkills.toList();
   }
 
-  void addProfile({String name, File photo, List category, String address}) {
+  void addProfile({
+    @required String firstName,
+    @required String lastName,
+    File photo,
+    @required List category,
+    @required String address,
+  }) {
     final newProfile = Profile(
       id: DateTime.now().toString(),
-      name: name,
+      firstName: firstName,
+      lastName: lastName,
       photo: photo,
       category: category,
       address: address,

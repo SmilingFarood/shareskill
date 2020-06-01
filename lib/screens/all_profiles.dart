@@ -23,7 +23,7 @@ class _AllProfilesState extends State<AllProfiles> {
           itemCount: loadedProfiles.length,
           itemBuilder: (ctx, i) => ProfileList(
             id: loadedProfiles[i].id,
-            name: loadedProfiles[i].name,
+            name: loadedProfiles[i].firstName,
             category: loadedProfiles[i].category,
           ),
         ));

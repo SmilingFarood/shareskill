@@ -69,7 +69,7 @@ class _NameInputFieldsState extends State<NameInputFields> {
 
   @override
   Widget build(BuildContext context) {
-    final mdData = MediaQuery.of(context).size;
+    // final mdData = MediaQuery.of(context).size;
     print('This is printed in the name input screen');
     print(widget.incomingData);
 
@@ -77,7 +77,7 @@ class _NameInputFieldsState extends State<NameInputFields> {
       child: Card(
         elevation: 20,
         child: Container(
-          height: mdData.height * 0.63,
+          height: 400,
           width: 300,
           padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
@@ -129,7 +129,7 @@ class _NameInputFieldsState extends State<NameInputFields> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Address'),
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.text,
                     onSaved: (value) {
                       _contactDetails['address'] = value;
                     },

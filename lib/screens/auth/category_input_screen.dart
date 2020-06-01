@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shareskill/providers/user_category.dart';
+import 'package:shareskill/screens/auth/concluding_auth_screen.dart';
 
 class CategoryInputScreen extends StatelessWidget {
   const CategoryInputScreen({Key key}) : super(key: key);
@@ -9,9 +10,7 @@ class CategoryInputScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fourthStageReceivedData =
-        ModalRoute.of(context).settings.arguments as dynamic;
-    print('This is printed in the category Input screen');
-    print(fourthStageReceivedData);
+        ModalRoute.of(context).settings.arguments as Map;
     return Scaffold(
       // appBar: AppBar(),
       body: Stack(
@@ -30,7 +29,9 @@ class CategoryInputScreen extends StatelessWidget {
             ),
           ),
           Center(
-            child: CategoryCard(),
+            child: CategoryCard(
+              allMyData: fourthStageReceivedData,
+            ),
           ),
         ],
       ),
@@ -39,14 +40,18 @@ class CategoryInputScreen extends StatelessWidget {
 }
 
 class CategoryCard extends StatefulWidget {
+  final dynamic allMyData;
+  CategoryCard({this.allMyData});
   @override
   _CategoryCardState createState() => _CategoryCardState();
 }
 
 class _CategoryCardState extends State<CategoryCard> {
-  List<String> _selectedCat = [];
+  List<String> selectedCat = [];
   @override
   Widget build(BuildContext context) {
+    print('This is printed on the category input screen');
+    print(widget.allMyData);
     final categoryData = Provider.of<UserCategory>(context).categories;
     return Container(
       height: 400,
@@ -68,15 +73,30 @@ class _CategoryCardState extends State<CategoryCard> {
                     return FilterChipClass(
                       labelUsed: categoryData[index].title,
                       color: categoryData[index].color,
-                      allSelected: _selectedCat,
+                      allSelected: selectedCat,
                     );
                   },
                 ),
               ),
             ),
             RaisedButton(
+              color: Theme.of(context).primaryColor,
               child: Text('Continue'),
-              onPressed: () {},
+              onPressed: selectedCat == []
+                  ? null
+                  : () {
+                      Navigator.of(context).pushNamed(
+                        ConcludingAuthScreen.routeName,
+                        arguments: {
+                          'selectedCategories': selectedCat,
+                          'authDetails':
+                              widget.allMyData['receivedAuthDetails'],
+                          'contactDetails':
+                              widget.allMyData['receivedContactDetails'],
+                          'imageFile': widget.allMyData['imageFile'],
+                        },
+                      );
+                    },
             )
           ],
         ),

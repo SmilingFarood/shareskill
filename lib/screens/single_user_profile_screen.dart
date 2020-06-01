@@ -14,12 +14,13 @@ class SingleUserProfileScreen extends StatelessWidget {
     final receivedId = routeArgs['profileId'];
 
     final singleLoadedProfile =
-        Provider.of<UserProfile>(context).singleProfile(receivedId: receivedId);
+        Provider.of<UserProfile>(context, listen: false).singleProfile(receivedId: receivedId);
 
     return SingleUserProfile(
-      name: singleLoadedProfile.name,
+      firstName: singleLoadedProfile.firstName,
       address: singleLoadedProfile.address,
       category: singleLoadedProfile.category,
+      photo: singleLoadedProfile.photo,
     );
   }
 }

@@ -43,7 +43,7 @@ class _ProfileListScreenState extends State<ProfileListScreen> {
           itemCount: loadedProfiles.length,
           itemBuilder: (ctx, i) => ProfileList(
             id: loadedProfiles[i].id,
-            name: loadedProfiles[i].name,
+            name: loadedProfiles[i].firstName,
             category: loadedProfiles[i].category,
           ),
         )

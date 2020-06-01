@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shareskill/screens/single_user_profile_screen.dart';
 
@@ -5,11 +7,13 @@ class ProfileList extends StatelessWidget {
   final String name;
   final List<String> category;
   final String id;
+  final File photo;
 
   ProfileList({
     @required this.name,
     @required this.category,
     @required this.id,
+    this.photo,
   });
   @override
   Widget build(BuildContext context) {
