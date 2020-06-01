@@ -3,8 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:shareskill/providers/user_category.dart';
 import 'package:shareskill/providers/user_profile.dart';
 import 'package:shareskill/screens/all_profiles.dart';
+import 'package:shareskill/screens/auth/concluding_auth_screen.dart';
 import 'package:shareskill/screens/auth_screen.dart';
-import 'package:shareskill/screens/category_input_screen.dart';
+import 'package:shareskill/screens/auth/category_input_screen.dart';
 import 'package:shareskill/screens/category_screen.dart';
 import 'package:shareskill/screens/edit_profile_screen.dart';
 import 'package:shareskill/screens/auth/name_input_screen.dart';
@@ -65,6 +66,7 @@ class MyApp extends StatelessWidget {
           NameInputScreen.routeName: (ctx) => NameInputScreen(),
           ProfilePhotoScreen.routeName: (ctx) => ProfilePhotoScreen(),
           CategoryInputScreen.routeName: (ctx) => CategoryInputScreen(),
+          ConcludingAuthScreen.routeName: (ctx) => ConcludingAuthScreen(),
         },
       ),
     );

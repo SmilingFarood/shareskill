@@ -1,15 +1,20 @@
 import 'dart:io';
+import 'package:path_provider/path_provider.dart' as syspaths;
+import 'package:path/path.dart' as path;
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shareskill/screens/category_input_screen.dart';
+import 'package:shareskill/screens/auth/category_input_screen.dart';
 
 class ProfilePhotoScreen extends StatelessWidget {
-  const ProfilePhotoScreen({Key key}) : super(key: key);
   static const routeName = '/profile-photo-screen';
 
   @override
   Widget build(BuildContext context) {
+    final newAuthReceived =
+        ModalRoute.of(context).settings.arguments as dynamic;
+    print(newAuthReceived['contactDetails']);
+    print(newAuthReceived['authDetails']);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -28,7 +33,7 @@ class ProfilePhotoScreen extends StatelessWidget {
           ),
           Container(
             child: Center(
-              child: SavePicture(),
+              child: SavePicture(receiveData: newAuthReceived),
             ),
           ),
         ],
@@ -40,6 +45,8 @@ class ProfilePhotoScreen extends StatelessWidget {
 class SavePicture extends StatefulWidget {
   @override
   _SavePictureState createState() => _SavePictureState();
+  final receiveData;
+  SavePicture({this.receiveData});
 }
 
 class _SavePictureState extends State<SavePicture> {
@@ -66,6 +73,9 @@ class _SavePictureState extends State<SavePicture> {
     setState(() {
       _storedImage = imageFile;
     });
+    final appDir = await syspaths.getTemporaryDirectory();
+    final fileName = path.basename(imageFile.path);
+    final savedImage = await imageFile.copy('${appDir.path}/$fileName');
     Navigator.of(context).pop();
   }
 
@@ -95,13 +105,14 @@ class _SavePictureState extends State<SavePicture> {
 
   @override
   Widget build(BuildContext context) {
+    // print(widget.receiveData);
     final mdData = MediaQuery.of(context).size;
     return Container(
       child: Card(
         elevation: 8,
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          height: mdData.height * 0.55,
+          height: 415,
           width: mdData.width * 0.8,
           child: Container(
             padding: EdgeInsets.symmetric(vertical: 25),
@@ -139,9 +150,12 @@ class _SavePictureState extends State<SavePicture> {
                     RaisedButton(
                       color: Theme.of(context).primaryColor,
                       onPressed: () {
-                        Navigator.of(context).pushNamed(CategoryInputScreen.routeName);
+                        Navigator.of(context).pushNamed(
+                          CategoryInputScreen.routeName,
+                          arguments: {'receivedData': widget.receiveData},
+                        );
                       },
-                      child: Text('Continue'),
+                      child: Text(_storedImage == null ? 'Skip' : 'Continue'),
                     ),
                   ],
                 ),

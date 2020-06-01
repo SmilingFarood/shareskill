@@ -54,6 +54,7 @@ class UserProfile with ChangeNotifier {
       address: address,
     );
     _profiles.add(newProfile);
+    notifyListeners();
   }
 
   Profile singleProfile({String receivedId}) {

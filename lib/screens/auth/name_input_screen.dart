@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:shareskill/screens/auth/profile_photo_screen.dart';
 
 class NameInputScreen extends StatelessWidget {
-  const NameInputScreen({Key key}) : super(key: key);
   static const routeName = '/name-input-screen';
 
   @override
   Widget build(BuildContext context) {
+    final _authReceived = ModalRoute.of(context).settings.arguments as Map;
     return Scaffold(
       // appBar: AppBar(),
       body: Stack(
@@ -27,7 +27,7 @@ class NameInputScreen extends StatelessWidget {
           ),
           Container(
             child: Center(
-              child: NameInputFields(),
+              child: NameInputFields(_authReceived),
             ),
           ),
         ],
@@ -36,12 +36,40 @@ class NameInputScreen extends StatelessWidget {
   }
 }
 
-class NameInputFields extends StatelessWidget {
-  NameInputFields({Key key}) : super(key: key);
+class NameInputFields extends StatefulWidget {
+  final Map receivedData;
+  NameInputFields(this.receivedData);
+
+  @override
+  _NameInputFieldsState createState() => _NameInputFieldsState();
+}
+
+class _NameInputFieldsState extends State<NameInputFields> {
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final Map<String, String> _contactDetails = {
+    'firstName': '',
+    'lastName': '',
+    'phoneNumber': '',
+    'address': '',
+  };
+
+  void _saveForm() {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    _formKey.currentState.save();
+
+    Navigator.of(context)
+        .pushReplacementNamed(ProfilePhotoScreen.routeName, arguments: {
+      'contactDetails': _contactDetails,
+      'authDetails': widget.receivedData,
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final mdData = MediaQuery.of(context).size;
+
     return Container(
       child: Card(
         elevation: 20,
@@ -51,17 +79,19 @@ class NameInputFields extends StatelessWidget {
           padding: EdgeInsets.all(20),
           child: SingleChildScrollView(
             child: Form(
+              key: _formKey,
               child: Column(
                 children: <Widget>[
                   TextFormField(
                     decoration: InputDecoration(labelText: 'First Name'),
                     keyboardType: TextInputType.text,
+                    onSaved: (value) {
+                      _contactDetails['firstName'] = value;
+                    },
                     validator: (value) {
-                      if (value.isNotEmpty) {
-                        return 'Value';
+                      if (value.isEmpty) {
+                        return 'Enter Your Firstname';
                       }
-                      // Come back to this later
-                      return value;
                     },
                   ),
 
@@ -70,12 +100,13 @@ class NameInputFields extends StatelessWidget {
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Last Name'),
                     keyboardType: TextInputType.text,
+                    onSaved: (value) {
+                      _contactDetails['lastName'] = value;
+                    },
                     validator: (value) {
-                      if (value.isNotEmpty) {
-                        return 'Value';
+                      if (value.isEmpty) {
+                        return 'Enter Your Lastname';
                       }
-                      // Come back to this later
-                      return value;
                     },
                   ),
 
@@ -84,24 +115,26 @@ class NameInputFields extends StatelessWidget {
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Phone Number'),
                     keyboardType: TextInputType.phone,
+                    onSaved: (value) {
+                      _contactDetails['phoneNumber'] = value;
+                    },
                     validator: (value) {
-                      if (value.isNotEmpty) {
-                        return 'Value';
+                      if (value.isEmpty) {
+                        return 'Enter Your Phone Number';
                       }
-                      // Come back to this later
-                      return value;
                     },
                   ),
                   TextFormField(
                     decoration: InputDecoration(labelText: 'Address'),
                     keyboardType: TextInputType.phone,
-                    maxLines: 5,
+                    onSaved: (value) {
+                      _contactDetails['address'] = value;
+                    },
+                    maxLines: 2,
                     validator: (value) {
-                      if (value.isNotEmpty) {
-                        return 'Value';
+                      if (value.isEmpty) {
+                        return 'Enter Your Address';
                       }
-                      // Come back to this later
-                      return value;
                     },
                   ),
 
@@ -120,8 +153,9 @@ class NameInputFields extends StatelessWidget {
                       ),
                       RaisedButton(
                         onPressed: () {
-                          Navigator.of(context).pushReplacementNamed(
-                              ProfilePhotoScreen.routeName);
+                          _saveForm();
+                          // print(widget.receivedData);
+                          // print(_receivedAuthDetails);
                         },
                         child: Text('Continue'),
                         color: Theme.of(context).primaryColor,

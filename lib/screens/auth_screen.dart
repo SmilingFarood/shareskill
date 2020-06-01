@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shareskill/screens/auth/name_input_screen.dart';
+import 'package:shareskill/screens/category_screen.dart';
 
 enum AuthState { Signup, Login }
 
@@ -45,6 +46,11 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
   var _isLoading = false;
   final _passwordController = TextEditingController();
   AuthState _authState = AuthState.Login;
+  final GlobalKey<FormState> _loginFormKey = GlobalKey();
+  Map<String, String> _authDetails = {
+    'email': '',
+    'password': '',
+  };
 
   void _switchAuthStatus() {
     if (_authState == AuthState.Login) {
@@ -59,10 +65,20 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
   }
 
   void _signUp() {
-    Navigator.of(context).pushNamed(NameInputScreen.routeName);
+    if (!_loginFormKey.currentState.validate()) {
+      return;
+    }
+    _loginFormKey.currentState.save();
+    Navigator.of(context)
+        .pushNamed(NameInputScreen.routeName, arguments: _authDetails);
   }
+
   void _login() {
-    // 
+    if (!_loginFormKey.currentState.validate()) {
+      return;
+    }
+    print(_authDetails);
+    Navigator.of(context).pushNamed(CategoryListScreen.routeName);
   }
 
   @override
@@ -71,23 +87,23 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
       child: Card(
         elevation: 20,
         child: Container(
-          height: _authState == AuthState.Signup
-              ? MediaQuery.of(context).size.height * 0.45
-              : MediaQuery.of(context).size.height * 0.364,
+          height: _authState == AuthState.Signup ? 380 : 320,
           width: 300,
           padding: EdgeInsets.all(20),
           child: Form(
+            key: _loginFormKey,
             child: Column(
               children: <Widget>[
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Email'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value.isNotEmpty) {
-                      return 'Value';
+                    if (value.isEmpty || !value.contains('@')) {
+                      return 'Invalid email';
                     }
-                    // Come back to this later
-                    return value;
+                  },
+                  onSaved: (value) {
+                    _authDetails['email'] = value;
                   },
                 ),
                 TextFormField(
@@ -96,11 +112,9 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
-                    if (value.isNotEmpty) {
-                      return 'Value';
+                    if (value.isEmpty || value.length < 8) {
+                      return 'Invalid Password';
                     }
-                    // Come back to this later
-                    return value;
                   },
                 ),
                 if (_authState == AuthState.Signup)
@@ -108,13 +122,12 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
                     enabled: _authState == AuthState.Signup,
                     decoration: InputDecoration(labelText: 'Confirm Password'),
                     obscureText: true,
+                    // onFieldSubmitted: ,
                     validator: _authState == AuthState.Signup
                         ? (value) {
-                            if (value == _passwordController.text) {
-                              // return 'Incorrect Password';
+                            if (value != _passwordController.text) {
+                              return 'Password Mismatch';
                             }
-                            // Come back yto this
-                            return 'Password Mismatch';
                           }
                         : null,
                   ),
