@@ -8,6 +8,10 @@ class CategoryInputScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final fourthStageReceivedData =
+        ModalRoute.of(context).settings.arguments as dynamic;
+    print('This is printed in the category Input screen');
+    print(fourthStageReceivedData);
     return Scaffold(
       // appBar: AppBar(),
       body: Stack(
@@ -35,61 +39,79 @@ class CategoryInputScreen extends StatelessWidget {
 }
 
 class CategoryCard extends StatefulWidget {
-  const CategoryCard({Key key}) : super(key: key);
-
   @override
   _CategoryCardState createState() => _CategoryCardState();
 }
 
 class _CategoryCardState extends State<CategoryCard> {
-  var _isSelected = false;
   @override
   Widget build(BuildContext context) {
     final categoryData = Provider.of<UserCategory>(context).categories;
     return Container(
+      height: 400,
+      width: 350,
       child: Card(
         elevation: 8,
-        child: Container(
-          padding: EdgeInsets.all(10),
-          height: 300,
-          width: 300,
-          child: ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: categoryData.length,
-            itemBuilder: (ctx, i) => Wrap(
-                spacing: 5.0,
-                runSpacing: 3.0,
-                children: [
-                  Container(
-                    width: 150,
-                    height: 150,
-                    child: FilterChip(
-                      label: Text(categoryData[i].title),
-                      avatar: CircleAvatar(
-                        child: Text(categoryData[i].title[0].toUpperCase()),
-                      ),
-                      selected: _isSelected,
-                      onSelected: (isSelected) {
-                        if(_isSelected == false){
-                         setState(() {
-                            _isSelected = true;
-                         });
-                        }else{
-                         setState(() {
-                            _isSelected = false;
-                         });
-                        }
-                      },
-                      backgroundColor: categoryData[i].color,
-                      selectedColor: Colors.blueGrey,
-                    ),
-                  ),
-                ],
+        child: Column(
+          children: <Widget>[
+            Container(
+              padding: EdgeInsets.all(10),
+              height: 300,
+              width: 300,
+              child: Wrap(
+                runSpacing: 3,
+                spacing: 10,
+                children: List.generate(
+                  categoryData.length,
+                  (index) {
+                    return FilterChipClass(
+                      labelUsed: categoryData[index].title,
+                      color: categoryData[index].color,
+                    );
+                  },
+                ),
               ),
-            
-          ),
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class FilterChipClass extends StatefulWidget {
+  final String labelUsed;
+  final Color color;
+  FilterChipClass({this.labelUsed, this.color});
+
+  @override
+  _FilterChipClassState createState() => _FilterChipClassState();
+}
+
+class _FilterChipClassState extends State<FilterChipClass> {
+  bool _isSelected = false;
+  @override
+  Widget build(BuildContext context) {
+    return FilterChip(
+      backgroundColor: widget.color,
+      avatar: CircleAvatar(
+        child: Text(
+          widget.labelUsed[0].toUpperCase(),
+        ),
+      ),
+      label: Text(widget.labelUsed),
+      selected: _isSelected,
+      onSelected: (_) {
+        if (_isSelected == false) {
+          setState(() {
+            _isSelected = true;
+          });
+        } else {
+          setState(() {
+            _isSelected = false;
+          });
+        }
+      },
     );
   }
 }

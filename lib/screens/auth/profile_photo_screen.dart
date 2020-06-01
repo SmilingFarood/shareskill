@@ -11,10 +11,11 @@ class ProfilePhotoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final newAuthReceived =
+    final _secondStageIncomingData =
         ModalRoute.of(context).settings.arguments as dynamic;
-    print(newAuthReceived['contactDetails']);
-    print(newAuthReceived['authDetails']);
+    print('This is printed in the profile photo screen');
+    print(_secondStageIncomingData['contactDetails']);
+    print(_secondStageIncomingData['authDetails']);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -33,7 +34,7 @@ class ProfilePhotoScreen extends StatelessWidget {
           ),
           Container(
             child: Center(
-              child: SavePicture(receiveData: newAuthReceived),
+              child: SavePicture(receiveData: _secondStageIncomingData),
             ),
           ),
         ],
@@ -152,7 +153,12 @@ class _SavePictureState extends State<SavePicture> {
                       onPressed: () {
                         Navigator.of(context).pushNamed(
                           CategoryInputScreen.routeName,
-                          arguments: {'receivedData': widget.receiveData},
+                          arguments: _storedImage == null
+                              ? {'receivedData': widget.receiveData}
+                              : {
+                                  'receivedData': widget.receiveData,
+                                  'imageFile': _storedImage
+                                },
                         );
                       },
                       child: Text(_storedImage == null ? 'Skip' : 'Continue'),

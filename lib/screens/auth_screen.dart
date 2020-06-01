@@ -36,7 +36,8 @@ class AuthScreen extends StatelessWidget {
 }
 
 class AuthenticationCard extends StatefulWidget {
-  AuthenticationCard({Key key}) : super(key: key);
+  // final Function sendingAuthDetails;
+  // AuthenticationCard({this.sendingAuthDetails});
 
   @override
   _AuthenticationCardState createState() => _AuthenticationCardState();
@@ -77,6 +78,7 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
     if (!_loginFormKey.currentState.validate()) {
       return;
     }
+    print('This is printed in the auth Screen');
     print(_authDetails);
     Navigator.of(context).pushNamed(CategoryListScreen.routeName);
   }

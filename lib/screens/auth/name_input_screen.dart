@@ -7,7 +7,8 @@ class NameInputScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _authReceived = ModalRoute.of(context).settings.arguments as Map;
+    final _authDetailsReceived =
+        ModalRoute.of(context).settings.arguments as Map;
     return Scaffold(
       // appBar: AppBar(),
       body: Stack(
@@ -27,7 +28,7 @@ class NameInputScreen extends StatelessWidget {
           ),
           Container(
             child: Center(
-              child: NameInputFields(_authReceived),
+              child: NameInputFields(incomingData: _authDetailsReceived),
             ),
           ),
         ],
@@ -37,8 +38,8 @@ class NameInputScreen extends StatelessWidget {
 }
 
 class NameInputFields extends StatefulWidget {
-  final Map receivedData;
-  NameInputFields(this.receivedData);
+  final Map incomingData;
+  NameInputFields({this.incomingData});
 
   @override
   _NameInputFieldsState createState() => _NameInputFieldsState();
@@ -62,13 +63,15 @@ class _NameInputFieldsState extends State<NameInputFields> {
     Navigator.of(context)
         .pushReplacementNamed(ProfilePhotoScreen.routeName, arguments: {
       'contactDetails': _contactDetails,
-      'authDetails': widget.receivedData,
+      'authDetails': widget.incomingData,
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final mdData = MediaQuery.of(context).size;
+    print('This is printed in the name input screen');
+    print(widget.incomingData);
 
     return Container(
       child: Card(

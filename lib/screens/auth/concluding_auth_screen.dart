@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:shareskill/screens/auth_screen.dart';
 
 class ConcludingAuthScreen extends StatelessWidget {
   const ConcludingAuthScreen({Key key}) : super(key: key);
@@ -25,7 +26,7 @@ class ConcludingAuthScreen extends StatelessWidget {
           ),
           Container(
             child: Center(
-              child: null,
+              child: SendingAllData(),
             ),
           ),
         ],
@@ -34,13 +35,26 @@ class ConcludingAuthScreen extends StatelessWidget {
   }
 }
 
-class SendingAllData extends StatelessWidget {
-  const SendingAllData({Key key}) : super(key: key);
+class SendingAllData extends StatefulWidget {
+  @override
+  _SendingAllDataState createState() => _SendingAllDataState();
+}
+
+class _SendingAllDataState extends State<SendingAllData> {
+  // String email;
+  // String password;
+  // void _getAuthDetails({Map<String, String> authDetailsReceived}) {
+  //   email = authDetailsReceived['email'];
+  //   password = authDetailsReceived['password'];
+  // }
 
   @override
   Widget build(BuildContext context) {
+    // print(email);
+    // print(password);
     return Center(
       child: CircularProgressIndicator(),
+      // AuthenticationCard(sendingAuthDetails: _getAuthDetails),
     );
   }
 }
