@@ -44,6 +44,7 @@ class CategoryCard extends StatefulWidget {
 }
 
 class _CategoryCardState extends State<CategoryCard> {
+  List<String> _selectedCat = [];
   @override
   Widget build(BuildContext context) {
     final categoryData = Provider.of<UserCategory>(context).categories;
@@ -67,11 +68,16 @@ class _CategoryCardState extends State<CategoryCard> {
                     return FilterChipClass(
                       labelUsed: categoryData[index].title,
                       color: categoryData[index].color,
+                      allSelected: _selectedCat,
                     );
                   },
                 ),
               ),
             ),
+            RaisedButton(
+              child: Text('Continue'),
+              onPressed: () {},
+            )
           ],
         ),
       ),
@@ -82,7 +88,12 @@ class _CategoryCardState extends State<CategoryCard> {
 class FilterChipClass extends StatefulWidget {
   final String labelUsed;
   final Color color;
-  FilterChipClass({this.labelUsed, this.color});
+  final List<String> allSelected;
+  FilterChipClass({
+    this.labelUsed,
+    this.color,
+    @required this.allSelected,
+  });
 
   @override
   _FilterChipClassState createState() => _FilterChipClassState();
@@ -105,10 +116,12 @@ class _FilterChipClassState extends State<FilterChipClass> {
         if (_isSelected == false) {
           setState(() {
             _isSelected = true;
+            widget.allSelected.add(widget.labelUsed);
           });
         } else {
           setState(() {
             _isSelected = false;
+            widget.allSelected.remove(widget.labelUsed);
           });
         }
       },
