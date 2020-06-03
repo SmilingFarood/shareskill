@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shareskill/providers/user_category.dart';
-import 'package:shareskill/screens/auth/concluding_auth_screen.dart';
+import 'package:shareskill/screens/auth_screens/concluding_auth_screen.dart';
 
 class CategoryInputScreen extends StatelessWidget {
   const CategoryInputScreen({Key key}) : super(key: key);
@@ -50,8 +50,6 @@ class _CategoryCardState extends State<CategoryCard> {
   List<String> selectedCat = [];
   @override
   Widget build(BuildContext context) {
-    print('This is printed on the category input screen');
-    print(widget.allMyData);
     final categoryData = Provider.of<UserCategory>(context).categories;
     return Container(
       height: 400,

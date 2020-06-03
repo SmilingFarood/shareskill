@@ -25,6 +25,7 @@ class _AllProfilesState extends State<AllProfiles> {
             id: loadedProfiles[i].id,
             name: loadedProfiles[i].firstName,
             category: loadedProfiles[i].category,
+            photo: loadedProfiles[i].photo,
           ),
         ));
   }

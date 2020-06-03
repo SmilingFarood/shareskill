@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:shareskill/screens/auth/profile_photo_screen.dart';
+import 'package:shareskill/screens/auth_screens/profile_photo_screen.dart';
 
 class NameInputScreen extends StatelessWidget {
   static const routeName = '/name-input-screen';
@@ -69,10 +69,6 @@ class _NameInputFieldsState extends State<NameInputFields> {
 
   @override
   Widget build(BuildContext context) {
-    // final mdData = MediaQuery.of(context).size;
-    print('This is printed in the name input screen');
-    print(widget.incomingData);
-
     return Container(
       child: Card(
         elevation: 20,

@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shareskill/models/profile.dart';
 import 'package:shareskill/providers/user_profile.dart';
 import 'package:shareskill/screens/category_screen.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class ConcludingAuthScreen extends StatelessWidget {
   const ConcludingAuthScreen({Key key}) : super(key: key);
@@ -54,30 +56,27 @@ class LoadingAllData extends StatelessWidget {
     // final File imageFile = finalData['imageFile'];
 
     final String email = finalData['authDetails']['email'];
-    // print(email);
     final String password = finalData['authDetails']['password'];
-    // print(password);
     final String firstName = finalData['contactDetails']['firstName'];
-    // print(firstName);
     final String lastName = finalData['contactDetails']['lastName'];
-    // print(lastName);
     final String phoneNumber = finalData['contactDetails']['phoneNumber'];
-    print(phoneNumber);
     final String address = finalData['contactDetails']['address'];
-    // print(address);
     final List<String> categories = finalData['selectedCategories'];
-    // print(categories);
-    final File photo = finalData['imageFile'];
-    // print(photo);
+    final File profilePhoto = finalData['imageFile'];
 
-    void completeSignup() {
-      Provider.of<UserProfile>(context, listen: false).addProfile(
-        firstName: firstName,
-        lastName: lastName,
-        photo: photo,
-        category: categories,
-        address: address,
-      );
+    var _profile = Profile(
+      id: DateTime.now().toString(),
+      firstName: firstName,
+      lastName: lastName,
+      photo: profilePhoto,
+      category: categories,
+      phoneNumber: phoneNumber,
+      address: address,
+    );
+
+    Future<void> completeSignup() async {
+      Provider.of<UserProfile>(context, listen: false)
+          .addProfile(profile: _profile);
       Navigator.of(context).pushNamed(CategoryListScreen.routeName);
     }
 
@@ -92,10 +91,10 @@ class LoadingAllData extends StatelessWidget {
             Container(
                 width: 300,
                 height: 300,
-                child: photo == null
+                child: profilePhoto == null
                     ? Text('No profile Picture selected')
                     : Image.file(
-                        photo,
+                        profilePhoto,
                         fit: BoxFit.cover,
                       )),
             Text(email),

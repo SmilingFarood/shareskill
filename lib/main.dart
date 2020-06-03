@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shareskill/providers/auth.dart';
 import 'package:shareskill/providers/user_category.dart';
 import 'package:shareskill/providers/user_profile.dart';
 import 'package:shareskill/screens/all_profiles.dart';
-import 'package:shareskill/screens/auth/concluding_auth_screen.dart';
+import 'package:shareskill/screens/auth_screens/concluding_auth_screen.dart';
 import 'package:shareskill/screens/auth_screen.dart';
-import 'package:shareskill/screens/auth/category_input_screen.dart';
+import 'package:shareskill/screens/auth_screens/category_input_screen.dart';
 import 'package:shareskill/screens/category_screen.dart';
 import 'package:shareskill/screens/edit_profile_screen.dart';
-import 'package:shareskill/screens/auth/name_input_screen.dart';
+import 'package:shareskill/screens/auth_screens/name_input_screen.dart';
 import 'package:shareskill/screens/profile_list_screen.dart';
-import 'package:shareskill/screens/auth/profile_photo_screen.dart';
+import 'package:shareskill/screens/auth_screens/profile_photo_screen.dart';
 import 'package:shareskill/screens/single_user_profile_screen.dart';
 
 void main() {
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(
+          value: Auth(),
+        ),
         ChangeNotifierProvider.value(
           value: UserCategory(),
         ),

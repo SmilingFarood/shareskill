@@ -38,13 +38,20 @@ class ProfileList extends StatelessWidget {
                     topLeft: Radius.circular(15),
                     topRight: Radius.circular(15),
                   ),
-                  child: Image.asset(
-                    'lib/assets/images/product-placeholder.png',
-                    height: 250,
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                    color: Colors.redAccent,
-                  ),
+                  child: photo == null
+                      ? Image.asset(
+                          'lib/assets/images/product-placeholder.png',
+                          height: 250,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          color: Colors.redAccent,
+                        )
+                      : Image.file(
+                          photo,
+                          height: 250,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
                 ),
                 Padding(
                   padding: EdgeInsets.all(20),

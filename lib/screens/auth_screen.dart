@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:shareskill/screens/auth/name_input_screen.dart';
+import 'package:shareskill/screens/auth_screens/name_input_screen.dart';
 import 'package:shareskill/screens/category_screen.dart';
 
 enum AuthState { Signup, Login }

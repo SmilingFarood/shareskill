@@ -1,10 +1,8 @@
 import 'dart:io';
-import 'package:path_provider/path_provider.dart' as syspaths;
-import 'package:path/path.dart' as path;
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:shareskill/screens/auth/category_input_screen.dart';
+import 'package:shareskill/screens/auth_screens/category_input_screen.dart';
 
 class ProfilePhotoScreen extends StatelessWidget {
   static const routeName = '/profile-photo-screen';
@@ -74,9 +72,7 @@ class _SavePictureState extends State<SavePicture> {
     setState(() {
       _storedImage = imageFile;
     });
-    final appDir = await syspaths.getTemporaryDirectory();
-    final fileName = path.basename(imageFile.path);
-    final savedImage = await imageFile.copy('${appDir.path}/$fileName');
+
     Navigator.of(context).pop();
   }
 

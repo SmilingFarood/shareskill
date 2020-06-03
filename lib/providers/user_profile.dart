@@ -1,7 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:shareskill/models/profile.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+// import 'package:dio/dio.dart';
 
 class UserProfile with ChangeNotifier {
   List<Profile> _profiles = [
@@ -49,20 +50,36 @@ class UserProfile with ChangeNotifier {
     return profileWithThisSkills.toList();
   }
 
-  void addProfile({
-    @required String firstName,
-    @required String lastName,
-    File photo,
-    @required List category,
-    @required String address,
-  }) {
+  Future<void> addProfile({Profile profile}) async {
+    const url = 'https://shareskill-67d33.firebaseio.com/user_profiles.json';
+    try {
+     
+      final response = await http.post(
+        url,
+        body: json.encode(
+          {
+            'id': profile.id,
+            'firstName': profile.firstName,
+            'lastName': profile.lastName,
+            'photo': profile.photo,
+            'category': profile.category,
+            'phoneNumber': profile.phoneNumber,
+            'address': profile.address,
+          },
+        ),
+      );
+      print(response.body);
+    } catch (e) {
+      print(e);
+    }
     final newProfile = Profile(
-      id: DateTime.now().toString(),
-      firstName: firstName,
-      lastName: lastName,
-      photo: photo,
-      category: category,
-      address: address,
+      id: profile.id,
+      firstName: profile.firstName,
+      lastName: profile.lastName,
+      photo: profile.photo,
+      category: profile.category,
+      phoneNumber: profile.phoneNumber,
+      address: profile.address,
     );
     _profiles.add(newProfile);
     notifyListeners();

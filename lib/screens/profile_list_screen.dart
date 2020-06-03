@@ -36,18 +36,19 @@ class _ProfileListScreenState extends State<ProfileListScreen> {
         Provider.of<UserProfile>(context).loadProfile(categoryTitle);
 
     return Scaffold(
-        appBar: AppBar(
-          title: Text(categoryTitle),
+      appBar: AppBar(
+        title: Text(categoryTitle),
+      ),
+      body: ListView.builder(
+        itemCount: loadedProfiles.length,
+        itemBuilder: (ctx, i) => ProfileList(
+          id: loadedProfiles[i].id,
+          name: loadedProfiles[i].firstName,
+          category: loadedProfiles[i].category,
+          photo: loadedProfiles[i].photo,
         ),
-        body: ListView.builder(
-          itemCount: loadedProfiles.length,
-          itemBuilder: (ctx, i) => ProfileList(
-            id: loadedProfiles[i].id,
-            name: loadedProfiles[i].firstName,
-            category: loadedProfiles[i].category,
-          ),
-        )
-        // ProfileList(),
-        );
+      ),
+      // ProfileList(),
+    );
   }
 }
