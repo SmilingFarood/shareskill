@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:shareskill/screens/auth_screens/name_input_screen.dart';
-import 'package:shareskill/screens/category_screen.dart';
 
 enum AuthState { Signup, Login }
 
@@ -36,9 +37,6 @@ class AuthScreen extends StatelessWidget {
 }
 
 class AuthenticationCard extends StatefulWidget {
-  // final Function sendingAuthDetails;
-  // AuthenticationCard({this.sendingAuthDetails});
-
   @override
   _AuthenticationCardState createState() => _AuthenticationCardState();
 }
@@ -74,13 +72,50 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
         .pushNamed(NameInputScreen.routeName, arguments: _authDetails);
   }
 
-  void _login() {
+  void _login() async {
     if (!_loginFormKey.currentState.validate()) {
       return;
     }
-    print('This is printed in the auth Screen');
-    print(_authDetails);
-    Navigator.of(context).pushNamed(CategoryListScreen.routeName);
+    FocusScope.of(context).unfocus();
+    _loginFormKey.currentState.save();
+
+    AuthResult authResult;
+
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+
+      authResult = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _authDetails['email'].trim(),
+        password: _authDetails['password'].trim(),
+      );
+      setState(() {
+        _isLoading = false;
+      });
+    } on PlatformException catch (error) {
+      var errMessage = 'An error occured';
+      if (error.message != null) {
+        errMessage = error.message;
+      }
+      setState(() {
+        _isLoading = false;
+      });
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errMessage),
+        ),
+      );
+    } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(error),
+        ),
+      );
+    }
   }
 
   @override
@@ -97,30 +132,38 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
             child: Column(
               children: <Widget>[
                 TextFormField(
+                  key: ValueKey('email'),
                   decoration: InputDecoration(labelText: 'Email'),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     if (value.isEmpty || !value.contains('@')) {
                       return 'Invalid email';
                     }
+                    return null;
                   },
                   onSaved: (value) {
                     _authDetails['email'] = value;
                   },
                 ),
                 TextFormField(
+                  key: ValueKey('password'),
                   decoration: InputDecoration(labelText: 'Password'),
                   keyboardType: TextInputType.emailAddress,
                   obscureText: true,
                   controller: _passwordController,
                   validator: (value) {
-                    if (value.isEmpty || value.length < 8) {
+                    if (value.isEmpty || value.length < 6) {
                       return 'Invalid Password';
                     }
+                    return null;
+                  },
+                  onSaved: (value) {
+                    _authDetails['password'] = value;
                   },
                 ),
                 if (_authState == AuthState.Signup)
                   TextFormField(
+                    key: ValueKey('confirmPassword'),
                     enabled: _authState == AuthState.Signup,
                     decoration: InputDecoration(labelText: 'Confirm Password'),
                     obscureText: true,
@@ -130,6 +173,7 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
                             if (value != _passwordController.text) {
                               return 'Password Mismatch';
                             }
+                            return null;
                           }
                         : null,
                   ),
@@ -140,21 +184,21 @@ class _AuthenticationCardState extends State<AuthenticationCard> {
                   CircularProgressIndicator()
                 else
                   RaisedButton(
-                    onPressed: () {
-                      _authState == AuthState.Signup ? _signUp() : _login();
-                    },
+                    onPressed:
+                        _authState == AuthState.Signup ? _signUp : _login,
                     child: Text(
                         _authState == AuthState.Signup ? 'SignUp' : 'Login'),
                     color: Theme.of(context).primaryColor,
                   ),
-                FlatButton(
-                  onPressed: _switchAuthStatus,
-                  child: Text(_authState == AuthState.Signup
-                      ? 'Login Instead'
-                      : 'SignUp'),
-                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  textColor: Theme.of(context).primaryColor,
-                ),
+                if (!_isLoading)
+                  FlatButton(
+                    onPressed: _switchAuthStatus,
+                    child: Text(_authState == AuthState.Signup
+                        ? 'Login Instead'
+                        : 'SignUp'),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    textColor: Theme.of(context).primaryColor,
+                  ),
               ],
             ),
           ),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shareskill/providers/auth.dart';
@@ -60,9 +61,16 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: AuthScreen(),
+        home: StreamBuilder(
+          stream: FirebaseAuth.instance.onAuthStateChanged,
+          builder: (ctx, userSnapShot) {
+            if (userSnapShot.hasData) {
+              return CategoryListScreen();
+            }
+            return AuthScreen();
+          },
+        ),
         routes: {
-          CategoryListScreen.routeName: (ctx) => CategoryListScreen(),
           ProfileListScreen.routeName: (ctx) => ProfileListScreen(),
           AllProfiles.routeName: (ctx) => AllProfiles(),
           EditProfileScreen.routeName: (ctx) => EditProfileScreen(),

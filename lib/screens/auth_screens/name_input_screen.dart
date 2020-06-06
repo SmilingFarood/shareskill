@@ -91,6 +91,7 @@ class _NameInputFieldsState extends State<NameInputFields> {
                       if (value.isEmpty) {
                         return 'Enter Your Firstname';
                       }
+                      return null;
                     },
                   ),
 
@@ -106,6 +107,7 @@ class _NameInputFieldsState extends State<NameInputFields> {
                       if (value.isEmpty) {
                         return 'Enter Your Lastname';
                       }
+                      return null;
                     },
                   ),
 
@@ -121,6 +123,7 @@ class _NameInputFieldsState extends State<NameInputFields> {
                       if (value.isEmpty) {
                         return 'Enter Your Phone Number';
                       }
+                      return null;
                     },
                   ),
                   TextFormField(
@@ -134,6 +137,7 @@ class _NameInputFieldsState extends State<NameInputFields> {
                       if (value.isEmpty) {
                         return 'Enter Your Address';
                       }
+                      return null;
                     },
                   ),
 

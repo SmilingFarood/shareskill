@@ -50,40 +50,40 @@ class UserProfile with ChangeNotifier {
     return profileWithThisSkills.toList();
   }
 
-  Future<void> addProfile({Profile profile}) async {
-    const url = 'https://shareskill-67d33.firebaseio.com/user_profiles.json';
-    try {
+  // Future<void> addProfile({Profile profile}) async {
+  //   const url = 'https://shareskill-67d33.firebaseio.com/user_profiles.json';
+  //   try {
      
-      final response = await http.post(
-        url,
-        body: json.encode(
-          {
-            'id': profile.id,
-            'firstName': profile.firstName,
-            'lastName': profile.lastName,
-            'photo': profile.photo,
-            'category': profile.category,
-            'phoneNumber': profile.phoneNumber,
-            'address': profile.address,
-          },
-        ),
-      );
-      print(response.body);
-    } catch (e) {
-      print(e);
-    }
-    final newProfile = Profile(
-      id: profile.id,
-      firstName: profile.firstName,
-      lastName: profile.lastName,
-      photo: profile.photo,
-      category: profile.category,
-      phoneNumber: profile.phoneNumber,
-      address: profile.address,
-    );
-    _profiles.add(newProfile);
-    notifyListeners();
-  }
+  //     final response = await http.post(
+  //       url,
+  //       body: json.encode(
+  //         {
+  //           'id': profile.id,
+  //           'firstName': profile.firstName,
+  //           'lastName': profile.lastName,
+  //           'photo': profile.photo,
+  //           'category': profile.category,
+  //           'phoneNumber': profile.phoneNumber,
+  //           'address': profile.address,
+  //         },
+  //       ),
+  //     );
+  //     print(response.body);
+  //   } catch (e) {
+  //     print(e);
+  //   }
+  //   final newProfile = Profile(
+  //     id: profile.id,
+  //     firstName: profile.firstName,
+  //     lastName: profile.lastName,
+  //     photo: profile.photo,
+  //     category: profile.category,
+  //     phoneNumber: profile.phoneNumber,
+  //     address: profile.address,
+  //   );
+  //   _profiles.add(newProfile);
+  //   notifyListeners();
+  // }
 
   Profile singleProfile({String receivedId}) {
     final foundProfile = profiles.firstWhere(
